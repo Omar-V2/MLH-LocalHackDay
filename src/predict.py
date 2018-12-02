@@ -1,7 +1,11 @@
 import cv2
 import os
 import numpy as np
+from PIL import Image
 from keras.models import load_model
+from keras.preprocessing.image import load_img
+from keras.preprocessing.image import img_to_array
+
 
 def generate_gesture(ges_name, num_train_samples, save=True):
     cam = cv2.VideoCapture(0)
@@ -17,10 +21,16 @@ def generate_gesture(ges_name, num_train_samples, save=True):
         ROI = thresh[y: y+h, x: x+w]
         cv2.imshow('Input', frame)
         cv2.imshow('thresh', ROI)
-        # model_in = cv2.resize(ROI, (128, 128))
-        model_in = np.reshape(ROI, (-1, 156, 156, 3))
         cv2.waitKey(1)
-        clf.predict(model_in)
+        # print(ROI.shape)
+        im_in = cv2.imwrite('predictor.jpg', ROI)
+        im_in = load_img('predictor.jpg')
+        im_in = im_in.resize((150, 150), Image.NEAREST)
+        im_in = img_to_array(im_in)
+        im_in = np.expand_dims(im_in, axis=0)
+        print(clf.predict(im_in))
+
+
 
         if cv2.waitKey(1) and 0xFF == ord('q'):
             break
