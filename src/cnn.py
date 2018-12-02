@@ -6,16 +6,16 @@ from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Dropout, Flatten, Dense, Activation
 
 
-img_width, img_height = 150, 150
+img_width, img_height = 28, 28
 input_shape = (img_width, img_height, 3)
 
 img = load_img('data/train/five/1.jpg')
 array_img = img_to_array(img)
-print(array_img.shape)
 
-train_dir = 'data/train'
+
+train_dir = 'data2/'
 num_train_samples = 500
-epochs = 10
+epochs = 50
 batch_size = 16
 
 
@@ -37,14 +37,17 @@ model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Flatten())
 model.add(Dense(64))
 model.add(Activation('relu'))
-model.add(Dropout(0.5))
-model.add(Dense(5))
+model.add(Dropout(0.6))
+model.add(Dense(43))
 model.add(Activation('softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 train_datagen = ImageDataGenerator(
     rescale=1/255.,
+    shear_range=0.2,
+    horizontal_flip=True,
+    zoom_range=0.1
 )
 
 train_generator = train_datagen.flow_from_directory(
@@ -60,4 +63,4 @@ model.fit_generator(
     epochs=epochs
 )
 
-model.save('trained.h5')
+model.save('trained2.h5')
