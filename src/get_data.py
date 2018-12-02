@@ -4,10 +4,6 @@ import shutil
 import time
 
 
-#test 
-
-
-
 def generate_gesture(ges_name, num_train_samples, save=True):
     cam = cv2.VideoCapture(0)
     x, y, w, h = (120, 100, 300, 300)
