@@ -30,7 +30,7 @@ def generate_gesture(ges_name, num_train_samples, save=True):
         im_in = img_to_array(im_in)
         im_in = np.expand_dims(im_in, axis=0)
         pred = clf.predict_classes(im_in)[0]
-        cv2.putText(frame, mapper.get(pred, 'not sure'), (230, 200), font, 0.8, (0, 0, 0), 2, cv2.LINE_AA)
+        cv2.putText(frame, mapper.get(pred, 'not sure'), (174, 35), font, 0.8, (0, 0, 0), 2, cv2.LINE_AA)
         # cv2.putText(frame, str(pred), (230, 200), font, 0.8, (0, 0, 0), 2, cv2.LINE_AA)
         cv2.imshow('Input', frame)
 
