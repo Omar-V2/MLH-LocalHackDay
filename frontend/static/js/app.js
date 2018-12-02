@@ -17,13 +17,34 @@ function cameraStart() {
         console.error("Oops. Something is broken.", error);
     });
 }
-// Take a picture when cameraTrigger is tapped
-cameraTrigger.onclick = function() {
-    cameraSensor.width = cameraView.videoWidth;
-    cameraSensor.height = cameraView.videoHeight;
-    cameraSensor.getContext("2d").drawImage(cameraView, 0, 0);
-    cameraOutput.src = cameraSensor.toDataURL("image/webp");
-    cameraOutput.classList.add("taken");
-};
+// // Take a picture when cameraTrigger is tapped
+// cameraTrigger.onclick = function() {
+//     cameraSensor.width = cameraView.videoWidth;
+//     cameraSensor.height = cameraView.videoHeight;
+//     cameraSensor.getContext("2d").drawImage(cameraView, 0, 0);
+//     cameraOutput.src = cameraSensor.toDataURL("image/webp");
+//     cameraOutput.classList.add("taken");
+// };
 // Start the video stream when the window loads
 window.addEventListener("load", cameraStart, false);
+
+
+$(function() {
+  $('button').click(function() {
+     console.log(cameraSensor.toDataURL());
+     
+      $.ajax({
+          url: '/recognizeImage',
+          data: { img: cameraSensor.toDataURL() },
+          type: 'POST',
+          success: function(response) {
+              console.log(response);
+              var recognizeResult = document.getElementById("result");
+              recognizeResult.innerHTML = response
+          },
+          error: function(error) {
+              console.log(error);
+          }
+      });
+  });
+});

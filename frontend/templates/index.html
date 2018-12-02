@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Camera App</title>
     <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
     <div align="center">
@@ -14,8 +15,9 @@
     <main id="camera">
         <canvas id="camera--sensor"></canvas>
         <video id="camera--view" autoplay playsinline></video>
-        <img src="//:0" alt="" id="camera--output">
-        <button id="camera--trigger">Take a picture</button>
+        <!-- <img src="//:0" alt="" id="camera--output"> -->
+        <button id="button" on-click="recognizeImage">Take a picture</button>
+        <h2 id="result"></h2>
     </main>
     <script src="static/js/app.js"></script>
 </body>
